@@ -3,11 +3,16 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 )
 
-func healthCheckerHandler(w http.ResponseWriter, r *http.Request){
-	data := map[string]bool{
-		"ok": true,
+func HealthCheckerHandler(w http.ResponseWriter, r *http.Request){
+	data := struct {
+		Status string `json:"status"`
+		Timestamp string `json:"timestamp"`
+	}{
+		Status: "Ok",
+		Timestamp: time.Now().UTC().Format(time.RFC3339),
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -17,7 +22,7 @@ func healthCheckerHandler(w http.ResponseWriter, r *http.Request){
 		http.Error(w, "Failed health", http.StatusInternalServerError)
 	}
 
-	w.WriteHeader(http.StatusAccepted)
+	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(jsonData))
 
 }
