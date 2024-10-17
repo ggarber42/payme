@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: payme
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docs/sql/schema_db.sql:/docker-entrypoint-initdb.d/init.sql
