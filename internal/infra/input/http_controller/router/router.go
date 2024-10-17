@@ -9,6 +9,7 @@ func NewRouter() *chi.Mux {
 	r := chi.NewRouter()
 
 	r.Get("/healthcheck", handlers.HealthCheckerHandler)
+	r.Post("/payment", handlers.PaymentHandler)
 
 	return r
 }
