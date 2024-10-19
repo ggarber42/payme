@@ -25,7 +25,6 @@ func (p *PaymentRequest) Bind(r *http.Request) error {
 
 type PaymentResponse struct {
 	Message string `json:"message"`
-	Elapsed int64 `json:"elapsed"`
 }
 
 func newPaymentResponse(message string) *PaymentResponse {
@@ -33,7 +32,6 @@ func newPaymentResponse(message string) *PaymentResponse {
 }
 
 func (pr *PaymentResponse) Render(w http.ResponseWriter, r *http.Request) error {
-	pr.Elapsed = 10
 	return nil
 }
 

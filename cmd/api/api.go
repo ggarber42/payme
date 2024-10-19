@@ -11,7 +11,7 @@ import (
 
 func main(){
 	cfg, err := config.LoadConfig(".")
-	logger := commonLogger.New(os.Stdout, commonLogger.LevelInfo)
+	logger := commonLogger.New(os.Stdout)
 	if err != nil {
 		panic(err)
 	}

@@ -34,13 +34,11 @@ func (l Level) String() string {
 
 type Logger struct {
 	out io.Writer
-	minLevel Level
 }
 
-func New(out io.Writer, minLevel Level) *Logger{
+func New(out io.Writer) *Logger{
 	return &Logger{
 		out: out,
-		minLevel: minLevel,
 	}
 }
 
