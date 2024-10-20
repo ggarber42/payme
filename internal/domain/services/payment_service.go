@@ -1,8 +1,11 @@
 package services
 
-import postegres_repo "github.com/ggarber42/payme/internal/infra/output/repository/postgres"
+import (
+	"github.com/ggarber42/payme/internal/domain/entity"
+	postegres_repo "github.com/ggarber42/payme/internal/infra/output/repository/postgres"
+)
 
-type PaymentService struct{
+type PaymentService struct {
 	pgRepo *postegres_repo.PostgresRepo
 }
 
@@ -12,10 +15,10 @@ func NewPaymentService(pgRepo *postegres_repo.PostgresRepo) *PaymentService {
 	}
 }
 
-func (ps *PaymentService) UpsertCard() error {
-	err := ps.pgRepo.GetCard()
+func (ps *PaymentService) UpsertCard() (entity.CardData, error) {
+	cardData, err := ps.pgRepo.GetCard()
 	if err != nil {
-		return err
+		return entity.CardData{}, err
 	}
-	return nil
+	return cardData, nil
 }

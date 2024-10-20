@@ -1,6 +1,7 @@
 package http_controller
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 
@@ -40,13 +41,20 @@ func (hc *HttpController) PaymentHandler(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	err := hc.ps.UpsertCard()
+	cardData, err := hc.ps.UpsertCard()
 	if err != nil{
 		render.Status(r, http.StatusInternalServerError)	
-		render.Render(w, r, NewErrorResponse(http.StatusBadRequest, "Invalid request", err))
+		render.Render(w, r, NewErrorResponse(http.StatusInternalServerError, "internal server error", err))
+		return
+	}
+
+	cardDataJson, err := json.Marshal(cardData)
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)	
+		render.Render(w, r, NewErrorResponse(http.StatusInternalServerError, "internal server error", err))
 		return
 	}
 
 	render.Status(r, http.StatusCreated)
-	render.Render(w, r, newPaymentResponse("payment created"))
+	render.Render(w, r, newPaymentResponse(string(cardDataJson)))
 }
