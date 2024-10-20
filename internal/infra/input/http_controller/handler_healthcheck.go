@@ -1,4 +1,4 @@
-package handlers
+package http_controller
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func HealthCheckerHandler(w http.ResponseWriter, r *http.Request){
+func (hc *HttpController) HealthCheckerHandler(w http.ResponseWriter, r *http.Request){
 	data := struct {
 		Status string `json:"status"`
 		Timestamp string `json:"timestamp"`

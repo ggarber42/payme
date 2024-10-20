@@ -40,4 +40,25 @@ curl -i -X POST localhost:3000/payment \
   }
 }'
 
+curl -i -X POST localhost:3000/payment \
+-H "Content-Type: application/json" \
+-d '{
+  "cardData": {
+    "cardName": "John Doe",
+    "cardToken": "your_card_token_here"
+  },
+  "shoppingData": {
+    "products": [
+      {
+        "id": "12345",
+        "name": "Product 1"
+      },
+      {
+        "id": "67890",
+        "name": "Product 2"
+      }
+    ]
+  }
+}'
+
 ```

@@ -12,8 +12,7 @@ import (
 	"github.com/ggarber42/payme/internal/common/config"
 	commonLogger "github.com/ggarber42/payme/internal/common/logger"
 	"github.com/ggarber42/payme/internal/infra/database/postgres"
-	"github.com/ggarber42/payme/internal/infra/input/http_controller/router"
-	postegres_repo "github.com/ggarber42/payme/internal/infra/output/repository/postgres"
+	make_http_controller "github.com/ggarber42/payme/internal/infra/make/http_controller"
 	"github.com/ggarber42/payme/internal/utils"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -21,17 +20,16 @@ import (
 func Start(config *config.Config, logger commonLogger.ILogger) {
 
 	pgPool, err := postgres.NewPostgresConn(config)
+	hc := make_http_controller.MakeHttpController(pgPool)
 	server := http.Server{
 		Addr:    fmt.Sprintf("0.0.0.0:%s", config.ServerPort),
-		Handler: router.NewRouter(),
+		Handler: hc.NewRouter(),
 	}
 
 	go func() {
 		if err != nil {
 			logger.PrintFatal(err, nil)
 		}
-		repo := postegres_repo.NewRepo(pgPool)
-		fmt.Println(repo)
 
 		logger.PrintInfo("starting server", nil)
 		server.ListenAndServe()

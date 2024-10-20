@@ -2,12 +2,12 @@ package entity
 
 type PaymentRequest struct {
 	CardData     *CardData     `json:"cardData"`
-	CardToken    string        `json:"cardToken"`
 	ShoppingData *ShoppingData `json:"shoppingData"`
 }
 
 type CardData struct {
-	CardName string `json:"cardName"`
+	CardName  string `json:"cardName"`
+	CardToken string `json:"cardToken"`
 }
 
 type ShoppingData struct {
