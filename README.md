@@ -45,7 +45,8 @@ curl -i -X POST localhost:3000/payment \
 -d '{
   "cardData": {
     "cardName": "John Doe",
-    "cardToken": "your_card_token_here"
+    "cardToken": "your_card_token_here",
+    "cardNumber": "1234567812345678"
   },
   "shoppingData": {
     "products": [

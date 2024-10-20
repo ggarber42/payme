@@ -18,7 +18,7 @@ func NewRepo(pool *pgxpool.Pool) *PostgresRepo {
 
 func (pr *PostgresRepo) GetCard() error {
 	var card entity.CardData
-	query := "SELECT name, token FROM CARD"
+	query := "SELECT name, number, token FROM CARD"
 
 	ctx := context.Background()
 	rows, err := pr.pool.Query(ctx, query)
@@ -29,12 +29,14 @@ func (pr *PostgresRepo) GetCard() error {
 	for rows.Next() {
 		err := rows.Scan(
 			&card.CardName,
+			&card.CardNumber,
 			&card.CardToken,
 		)
 		if err != nil {
 			return err
 		}
 		fmt.Println(card.CardName)
+		fmt.Println(card.CardNumber)
 		fmt.Println(card.CardToken)
 	}
 

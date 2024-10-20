@@ -7,6 +7,7 @@ type PaymentRequest struct {
 
 type CardData struct {
 	CardName  string `json:"cardName"`
+	CardNumber string `json:"cardNumber"`
 	CardToken string `json:"cardToken"`
 }
 
