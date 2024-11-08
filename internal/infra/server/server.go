@@ -31,7 +31,7 @@ func Start(config *config.Config, logger commonLogger.ILogger) {
 			logger.PrintFatal(err, nil)
 		}
 
-		logger.PrintInfo("starting server", nil)
+		logger.PrintInfo(fmt.Sprintf("starting server port 0.0.0.0:%s", config.ServerPort), nil)
 		server.ListenAndServe()
 	}()
 
@@ -56,5 +56,5 @@ func gracefulShutDown(server *http.Server, pgPool *pgxpool.Pool, logger commonLo
 	pgPool.Close()
 
 	logger.PrintInfo("shutdown clompeted exit code 0...", nil)
-	os.Exit(utils.EXIT_SUCCESS)
+	os.Exit(utils.ExitMessage.EXIT_SUCCESS)
 }

@@ -15,21 +15,22 @@ func NewRepo(pool *pgxpool.Pool) *PostgresRepo {
 	return &PostgresRepo{pool: pool}
 }
 
-func (pr *PostgresRepo) GetCard() (entity.CardData, error) {
+func (pr *PostgresRepo) GetCard(token string) (entity.CardData, error) {
 	var card entity.CardData
-	query := "SELECT name, number, token FROM CARD"
+	query := "SELECT number, cvv FROM card WHERE token = $1"
 
 	ctx := context.Background()
-	rows, err := pr.pool.Query(ctx, query)
+	rows, err := pr.pool.Query(ctx, query, token)
 	if err != nil {
 		return entity.CardData{}, err
 	}
 
+	defer rows.Close()
+
 	for rows.Next() {
 		err := rows.Scan(
-			&card.CardName,
-			&card.CardNumber,
-			&card.CardToken,
+			&card.Number,
+			&card.Cvv,
 		)
 		if err != nil {
 			return entity.CardData{}, err
