@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/ggarber42/payme/internal/common/validator"
@@ -23,11 +22,15 @@ func (pr *PaymentRequest) Bind(r *http.Request) error {
 		return v.GetError()
 	}
 
-	if pr.Vendor.Validate(v); !v.IsValid() {
+	if pr.StoreData.Validate(v); !v.IsValid() {
 		return v.GetError()
 	}
 
-	if pr.StoreData.Validate(v); !v.IsValid() {
+	if pr.CardData.Validate(v); !v.IsValid() {
+		return v.GetError()
+	}
+
+	if pr.Vendor.Validate(v); !v.IsValid() {
 		return v.GetError()
 	}
 
@@ -35,10 +38,10 @@ func (pr *PaymentRequest) Bind(r *http.Request) error {
 }
 
 func (pr *PaymentRequest) Validate(v *validator.Validator) {
-	v.Check(pr.CardData != nil, utils.Errors.MissingField.Key, fmt.Sprintf("%s: cardData", utils.Errors.MissingField.Message))
-	v.Check(pr.Purchase != nil, utils.Errors.MissingField.Key, fmt.Sprintf("%s: purchase", utils.Errors.MissingField.Message))
-	v.Check(pr.StoreData != nil, utils.Errors.MissingField.Key, fmt.Sprintf("%s: store", utils.Errors.MissingField.Message))
-	v.Check(pr.Vendor != nil, utils.Errors.MissingField.Key, fmt.Sprintf("%s: vendor", utils.Errors.MissingField.Message))
+	v.Check(pr.CardData != nil, missingKey, utils.MakeErrorMsg("cardData", missingMsg))
+	v.Check(pr.Purchase != nil, missingKey, utils.MakeErrorMsg("purchase", missingMsg))
+	v.Check(pr.StoreData != nil, missingKey, utils.MakeErrorMsg("store", missingMsg))
+	v.Check(pr.Vendor != nil, missingKey, utils.MakeErrorMsg("vendor", missingMsg))
 }
 
 type Payment struct {

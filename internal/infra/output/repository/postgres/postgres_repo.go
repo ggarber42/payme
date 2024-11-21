@@ -17,7 +17,7 @@ func NewRepo(pool *pgxpool.Pool) *PostgresRepo {
 
 func (pr *PostgresRepo) GetCard(token string) (entity.CardData, error) {
 	var card entity.CardData
-	query := "SELECT number, cvv FROM card WHERE token = $1"
+	query := "SELECT number, cvv FROM card WHERE token = $1" //race condition!!!
 
 	ctx := context.Background()
 	rows, err := pr.pool.Query(ctx, query, token)
