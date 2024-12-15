@@ -1,4 +1,4 @@
-package http_controller_test
+package http_controllerTest
 
 import (
 	"net/http"

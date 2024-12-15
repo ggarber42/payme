@@ -10,9 +10,10 @@ import (
 type Vendor string
 
 const (
-	STONE = "stone"
-	CIELO = "cielo"
-	REDE = "rede"
+	VENDOR = "vendor"
+	STONE  = "stone"
+	CIELO  = "cielo"
+	REDE   = "rede"
 )
 
 var ErrInvalidVendor = errors.New("vendor values suported are: stone, cielo and rede")
