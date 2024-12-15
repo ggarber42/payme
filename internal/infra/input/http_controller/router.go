@@ -8,7 +8,8 @@ func (hc *HttpController) NewRouter() *chi.Mux {
 	r := chi.NewRouter()
 
 	r.Get("/healthcheck", hc.HealthCheckerHandler)
-	r.Post("/payment", hc.PaymentHandler)
+	r.Post("/payment/{vendor}", hc.PaymentHandler)
+
 
 	return r
 }

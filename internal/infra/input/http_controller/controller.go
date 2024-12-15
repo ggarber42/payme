@@ -1,12 +1,23 @@
 package http_controller
 
-import "github.com/ggarber42/payme/internal/domain/services"
-
+import (
+	"github.com/ggarber42/payme/internal/domain/entity"
+	card_services "github.com/ggarber42/payme/internal/domain/services/card"
+	vendor_service "github.com/ggarber42/payme/internal/domain/services/mock_vendor"
+)
 
 type HttpController struct {
-	paymentService *services.PaymentService
+	cardService *card_services.CardService
+	paymentService map[entity.Vendor]vendor_service.IVendorService
 }
 
-func NewHttpController(ps *services.PaymentService) *HttpController {
-	return &HttpController{paymentService: ps}
+func NewHttpController(cs *card_services.CardService) *HttpController {
+	return &HttpController{
+		cardService: cs,
+		paymentService: map[entity.Vendor]vendor_service.IVendorService{
+			entity.STONE: &vendor_service.StoneService{},
+			entity.CIELO: &vendor_service.CieloService{},
+			entity.REDE: &vendor_service.RedeService{},
+		},
+	}
 }

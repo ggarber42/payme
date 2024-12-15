@@ -6,18 +6,25 @@ import (
 )
 
 type Purchase struct {
-	PurchaseId  string    `json:"purchaseid"`
-	Date        string    `json:"date"`
-	CustomerId  string    `json:"customerId"`
-	TotalAmount float64   `json:"totalAmount"`
-	Currency    string    `json:"currency"`
-	Products    []Product `json:"products"`
+	PurchaseId  string      `json:"purchaseid"`
+	Date        string      `json:"date"`
+	CustomerId  string      `json:"customerId"`
+	TotalAmount float64     `json:"totalAmount"`
+	Currency    string      `json:"currency"`
+	Products    []Product   `json:"products"`
+	Installments Installments `json:"installments"`
 }
 
 type Product struct {
 	Id    string  `json:"id"`
 	Name  string  `json:"name"`
 	Price float32 `json:"price"`
+}
+
+type Installments struct {
+	Number int     `json:"numberOfInstallments"`
+	Amount float64 `json:"installmentAmount"`
+	Total  float64 `json:"totalInstallmentAmount"`
 }
 
 var (
@@ -36,4 +43,8 @@ func (p *Purchase) Validate(v *validator.Validator) {
 		v.Check(product.Id == "", missingKey, utils.MakeErrorMsg("product id", missingMsg))
 		v.Check(product.Name == "", missingKey, utils.MakeErrorMsg("product name", missingMsg))
 	}
+
+	v.Check(p.Installments.Number == 0, missingKey, utils.MakeErrorMsg("numberOfInstallments", missingMsg))
+	v.Check(p.Installments.Amount == 0, missingKey, utils.MakeErrorMsg("installmentAmount", missingMsg))
+	v.Check(p.Installments.Total == 0, missingKey, utils.MakeErrorMsg("totalInstallmentAmount", missingMsg))
 }
