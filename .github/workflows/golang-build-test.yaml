@@ -28,5 +28,5 @@ jobs:
         run:  go mod download
 
       - name: Testing application
-        run: make unit-tests
+        run: make unit-test
         
