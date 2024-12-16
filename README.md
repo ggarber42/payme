@@ -160,7 +160,7 @@ curl --request POST \
 ### Run tests
 
 ```bash
-make run-test
+make unit-test
 ```
 
 ### Terminate
