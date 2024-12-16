@@ -5,6 +5,10 @@
 	<img src="docs/images/postgres.png" width="150" height="150"/>
 </p>
 
+<p align="center">
+  <img src="https://github.com/chaordic/platform-catalog-db-writer/actions/workflows/golang-build-test.yaml/badge.svg" alt="workflow test">
+</p>
+
 ### [Original challenge readme](https://website-name.com)
 
 
