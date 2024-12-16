@@ -7,11 +7,11 @@ import (
 )
 
 type HttpController struct {
-	cardService *card_services.CardService
+	cardService card_services.ICardService
 	paymentService map[entity.Vendor]vendor_service.IVendorService
 }
 
-func NewHttpController(cs *card_services.CardService) *HttpController {
+func NewHttpController(cs card_services.ICardService) *HttpController {
 	return &HttpController{
 		cardService: cs,
 		paymentService: map[entity.Vendor]vendor_service.IVendorService{

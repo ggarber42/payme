@@ -5,7 +5,7 @@
 	<img src="docs/images/postgres.png" width="150" height="150"/>
 </p>
 
-### [Inpsired by this](https://website-name.com)
+### [Original challenge readme](https://website-name.com)
 
 
 ## Run locally
@@ -42,7 +42,7 @@ Check if it's running
 curl -i localhost:3000/healthcheck
 ```
 
-### Test
+### Test manually
 
 The payload must be like the following:
 
@@ -151,6 +151,12 @@ curl --request POST \
     },
     "vendor": "cielo"
 }'
+```
+
+### Run tests
+
+```bash
+make run-test
 ```
 
 ### Terminate
