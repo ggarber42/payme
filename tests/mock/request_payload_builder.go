@@ -54,6 +54,16 @@ func NewRequestPayload() *RequestPayload {
 	return &RequestPayload{payload}
 }
 
+func (p *RequestPayload) InvalidCardData() *RequestPayload {
+	p.Payload["cardData"] = map[string]string{}
+	return p
+}
+
+func (p *RequestPayload) InvalidVendor() *RequestPayload{
+	p.Payload["vendor"] = "invalid"
+	return p
+}
+
 func (p *RequestPayload) Build() Payload {
 	return p.Payload
 }
